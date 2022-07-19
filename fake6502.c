@@ -38,9 +38,9 @@ v2.4.0 - 19-07-2022
 
 Fake6502 requires you to provide two external functions:
 
-uint8_t fake6502_mem_read(uint16_t address)
+uint8_t fake6502_mem_read(fake6502_context *context, uint16_t address)
 
-void fake6502_mem_write(uint16_t address, uint8_t value)
+void fake6502_mem_write(fake6502_context *context, uint16_t address, uint8_t value)
 
 
 There are a couple of compile-time options:
