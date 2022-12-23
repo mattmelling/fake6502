@@ -24,3 +24,7 @@ Contributions and issue reports are welcome.
 To add any updates (pull requestst), please also make sure you update
 the version number in fake6502.c,
 and add an appropriate entry in CHANGELOG.md
+
+## Fork
+
+This fork adds [Nix](https://github.com/nixos/nixpkgs) packaging.
