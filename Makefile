@@ -1,10 +1,11 @@
 CC=gcc
 CFLAGS=-g -Werror -pedantic
 GCOV=-fprofile-arcs -ftest-coverage
-OUTDIR=build/
+OUTDIR=build
 
 .PHONY: default
-default: $(OUTDIR)/fake6502.o $(OUTDIR)/fake2a03.o $(OUTDIR)/fake65c02.o
+default: $(OUTDIR)/fake6502.o $(OUTDIR)/fake2a03.o $(OUTDIR)/fake65c02.o \
+	$(OUTDIR)/fake6502.pc $(OUTDIR)/fake2a03.pc $(OUTDIR)/fake65c02.pc
 
 $(OUTDIR):
 	mkdir -p $(OUTDIR)
@@ -15,6 +16,9 @@ $(OUTDIR)/fake65c02.o: fake6502.c
 	$(CC) -DDECIMALMODE -DCMOS6502 -c $(CFLAGS) fake6502.c -o $@
 $(OUTDIR)/fake2a03.o: fake6502.c
 	$(CC) -DNMOS6502 -c $(CFLAGS) fake6502.c -o $@
+
+$(OUTDIR)/%.pc: $(OUTDIR)
+	m4 -DNAME=$* fake6502.pc.m4 > $@
 
 $(OUTDIR)/tests: fake6502.c tests.c $(OUTDIR)
 	$(CC) $(GCOV) -DDECIMALMODE -DNMOS6502 -c $(CFLAGS) fake6502.c -o $(OUTDIR)/fake6502_test.o
